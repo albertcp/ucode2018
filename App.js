@@ -17,14 +17,11 @@ import QRCode from 'react-native-qrcode-svg';
 import Icon from "react-native-vector-icons/FontAwesome";
 import SlidingUpPanel from 'rn-sliding-up-panel';
 import RoundedButton from './RoundedButton.js';
-<<<<<<< HEAD
 import {NativeModules} from 'react-native';
 import { DeviceEventEmitter } from 'react-native';
 const {Firebase,Beacon} = NativeModules;
-=======
 import MenuButton from'./MenuButton.js';
 
->>>>>>> a439f3e93d50eb06eb278c0acc86d8bf020f03fd
 
  const styles = {
    container: {
@@ -51,7 +48,7 @@ import MenuButton from'./MenuButton.js';
     DeviceEventEmitter.addListener('BEACON_EXIT', res => this.setState({beacon: false}));
 
   }
-  
+
    renderMain(screen){
        switch(screen){
        case 'home':
@@ -76,43 +73,10 @@ import MenuButton from'./MenuButton.js';
        }
    }
 
->>>>>>> a439f3e93d50eb06eb278c0acc86d8bf020f03fd
    render() {
      const { opened } = this.state;
      return (
        <View style={styles.container}>
-<<<<<<< HEAD
-         <TouchableOpacity onPress={() => this.setState({visible: true})}>
-           {this.state.beacon && <Text>Hay beacon</Text>}
-           <Image source={require('./images/QR-code.png')}/>
-         </TouchableOpacity>
-         <SlidingUpPanel
-           draggableRange={{top: 675,bottom: 120}}
-           ref={c => this._panel = c}
-           visible={true}
-           onRequestClose={() => this.setState({visible: false})}>
-           <View style={{width: "100%", height: "100%", backgroundColor: "black"}}>
-            <View style={styles.container}>
-                <RoundedButton style={styles.buttonStyle}>
-                  <Icon name="rocket" size={30} color="#900" />
-                </RoundedButton>
-                <RoundedButton style={styles.buttonStyle}>
-                  <Icon name="rocket" size={30} color="#900" />
-                </RoundedButton>
-                <RoundedButton style={styles.buttonStyle}>
-                  <Icon name="rocket" size={30} color="#900" />
-                </RoundedButton>
-                <RoundedButton style={styles.buttonStyle}>
-                  <Icon name="rocket" size={30} color="#900" />
-                </RoundedButton>
-             </View>
-             <View style={styles.container}>
-                 <Text style={{color:'white'}}>Hola</Text>
-                 
-             </View>
-           </View>
-         </SlidingUpPanel>
-=======
          <ScrollView style={{height: opened ? "15%" : "85%",width: "100%" }}>
 	     {this.renderMain(this.state.screen)}
          </ScrollView>
@@ -121,7 +85,6 @@ import MenuButton from'./MenuButton.js';
 	     {this.renderMenu(this.state.screen)}
            </TouchableOpacity>}
          </View>
->>>>>>> a439f3e93d50eb06eb278c0acc86d8bf020f03fd
        </View>
      );
    }

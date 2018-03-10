@@ -16,24 +16,29 @@ import MenuButton from'./MenuButton.js';
 
 const styles = {
     buttonStyle: {
-	borderRadius: 100,
-	borderWith:1
+    	borderRadius: 100,
+    	borderWith:1
+    },
+    button2Style: {
+      backgroundColor: 'black',
+      color:'#900',
+      borderWith:1
     },
     first_icon_row: {
-	alignItems: 'flex-start',
-	justifyContent: 'space-between',
-	flexDirection: 'row',
-	paddingLeft: 15,
-	paddingRight: 15,
-	paddingTop: 10
+    	alignItems: 'flex-start',
+    	justifyContent: 'space-between',
+    	flexDirection: 'row',
+    	paddingLeft: 15,
+    	paddingRight: 15,
+    	paddingTop: 10
     },
     icon_row: {
-	alignItems: 'flex-start',
-	justifyContent: 'space-between',
-	flexDirection: 'row',
-	paddingLeft: 15,
-	paddingRight: 15,
-	paddingTop: 30
+    	alignItems: 'flex-start',
+    	justifyContent: 'space-between',
+    	flexDirection: 'row',
+    	paddingLeft: 15,
+    	paddingRight: 15,
+    	paddingTop: 30
     }
 };
 
@@ -51,59 +56,33 @@ export default class App extends React.Component {
         <View style={styles.first_icon_row}>
           <View style={{alignItems:  "center"}}>
             <RoundedButton style={styles.buttonStyle}>
-              <Icon name="trophy" size={30} color="#900" />
+              <Icon name="heartbeat" size={30} color="#900" />
             </RoundedButton>
-            <Text style={{marginTop: 10, color:'white'}}>Perfil</Text>
+            <Text style={{marginTop: 10, color:'white'}}>Cardio</Text>
           </View>
           <View style={{alignItems:  "center"}}>
              <RoundedButton style={styles.buttonStyle} onPress={() => this.props.changeScreen('exercises')}>
-              <Icon name="fire" size={30} color="#900" />
+              <Icon name="clock" size={30} color="#900" />
             </RoundedButton>
-            <Text style={{marginTop: 10, color:'white'}}>Ejercicios</Text>
+            <Text style={{marginTop: 10, color:'white'}}>Bicicleta</Text>
           </View>
           <View style={{alignItems:  "center"}}>
             <RoundedButton tyle={styles.buttonStyle}>
-              <Icon name="camera" size={30} color="#900" />
+              <Icon name="bicycle" size={30} color="#900" />
             </RoundedButton>
-            <Text style={{marginTop: 10, color:'white'}}>Scan Code</Text>
+            <Text style={{marginTop: 10, color:'white'}}>Pesas</Text>
           </View>
           <View style={{alignItems:  "center"}}>
             <RoundedButton style={styles.buttonStyle}>
-              <Icon name="shopping-bag" size={30} color="#900" />
+              <Icon name="clock" size={30} color="#900" />
             </RoundedButton>
             <Text style={{marginTop: 10, color:'white'}}>Tienda</Text>
           </View>
          </View>
+
          <View style={styles.icon_row}>
-           <View style={{alignItems:  "center"}}>
-             <RoundedButton style={styles.buttonStyle}>
-               <Icon name="star" size={30} color="#900" />
-             </RoundedButton>
-             <Text style={{marginTop: 10, color:'white'}}>Evaluar</Text>
-           </View>
-           <View style={{alignItems:  "center"}}>
-             <RoundedButton style={styles.buttonStyle}>
-               <Icon name="comments" size={30} color="#900" />
-             </RoundedButton>
-             <Text style={{marginTop: 10, color:'white'}}>Chat</Text>
-           </View>
-           <View style={{alignItems:  "center"}}>
-             <RoundedButton style={styles.buttonStyle}>
-               <Icon name="share-alt" size={30} color="#900" />
-             </RoundedButton>
-             <Text style={{marginTop: 10, color:'white'}}>Compartir</Text>
-           </View>
-           <View style={{alignItems:  "center"}}>
-             <RoundedButton style={styles.buttonStyle}>
-               <Icon name="cog" size={30} color="#900" />
-             </RoundedButton>
-             <Text style={{marginTop: 10, color:'white'}}>Ajustes</Text>
-           </View>
-         </View>
-         <View style={styles.icon_row}>
-             <Button style={styles.buttonStyle} title="Salir" onPress={() => {this.props.changeScreen("home"); this.props.toggleOpened()}} />
-            <Text style={{marginTop: 20, marginRight: 20,color:'#900', fontSize: 20, fontWeight: 'bold',}}>
-             Ayuda</Text>
+             <Button style={styles.button2Style} title="Pausa" onPress={() => {this.props.changeScreen("home"); this.props.toggleOpened()}} />
+             <Button style={styles.button2Style} title="Stop" />
          </View>
         </View>
         </View>

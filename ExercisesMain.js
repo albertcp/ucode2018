@@ -43,6 +43,13 @@ import MenuButton from'./MenuButton.js';
    },
    spaceText: {
      paddingTop: 30
+   },
+   timeStyle: {
+     paddingLeft: 25,
+     fontSize: 75,
+     fontWeight: 'bold',
+     color: 'black',
+     paddingTop: 10
    }
  }
 
@@ -51,7 +58,7 @@ export default class HomeMain extends React.Component {
        return (
 	   <View style={{height: "100%",width: "100%" }}>
              <View style={{ paddingTop: 30,width: "100%", justifyContent: "center", alignItems: "center"}}>
-	       <Text>Hola</Text>
+	       <Text style={styles.timeStyle}>00:10:32</Text>
 	   </View>
            <Text style={styles.lineStyle}>______________________________________________________________</Text>
            <Text style={styles.titleStyle}>Recompens</Text>
