@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "707908398505",
+    "firebase_url": "https://adidas-b2c4e.firebaseio.com",
+    "project_id": "adidas-b2c4e",
+    "storage_bucket": "adidas-b2c4e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:707908398505:android:4c1f9d86e8bf19f0",
+        "android_client_info": {
+          "package_name": "com.adidas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "707908398505-bm19i68e5kf3ac3mqs9ga53bsvh5avt3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.adidas",
+            "certificate_hash": "6119a6d77142d96839e98c90c621680e133a1382"
+          }
+        },
+        {
+          "client_id": "707908398505-q854evou5jktg5amtn4ks86372g8umr1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.adidas",
+            "certificate_hash": "233c5dfbeb2349692db59c37f01af4e9b6f77c8d"
+          }
+        },
+        {
+          "client_id": "707908398505-lv532qkilisa34c8lvauaug5nvcefkl9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjwz5yy8oavHEve0p1TjKqfpLL83Crp9M"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "707908398505-lv532qkilisa34c8lvauaug5nvcefkl9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
