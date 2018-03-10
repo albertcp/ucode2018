@@ -19,7 +19,11 @@ import SlidingUpPanel from 'rn-sliding-up-panel';
 import RoundedButton from './RoundedButton.js';
 import {NativeModules} from 'react-native';
 import { DeviceEventEmitter } from 'react-native';
-const {Firebase,Beacon} = NativeModules;
+const {
+    Firebase,
+    Beacon,
+    NFC,
+} = NativeModules;
 import MenuButton from'./MenuButton.js';
 
 
@@ -37,16 +41,21 @@ import MenuButton from'./MenuButton.js';
 
   constructor(props){
     super(props);
-    this.state = {beacon: false,
-		opened: false,
-	 screen: 'home',};
+      this.state = {
+	  beacon: false,
+	  opened: false,
+	  last_tag: null,
+	  screen: 'home',
+      };
   }
 
   componentDidMount(){
     Beacon.registerBeacon('tienda','bienvenida',1, 'Bienvenido a Adidas', 'Disfruta de tus compras');
     DeviceEventEmitter.addListener('BEACON_ENTERED', res => this.setState({beacon: true}));
     DeviceEventEmitter.addListener('BEACON_EXIT', res => this.setState({beacon: false}));
-
+    DeviceEventEmitter.addListener('NFC_TAG_READ', () => NFC.getLastReadTag().then(last_tag => {
+	this.setState({last_tag});
+    }));
   }
 
    renderMain(screen){
@@ -77,8 +86,9 @@ import MenuButton from'./MenuButton.js';
      const { opened } = this.state;
      return (
        <View style={styles.container}>
+         <Text>Last tag:{this.state.last_tag}</Text>
          <ScrollView style={{height: opened ? "15%" : "85%",width: "100%" }}>
-	     {this.renderMain(this.state.screen)}
+	 {this.renderMain(this.state.screen)}
          </ScrollView>
          <View style={{width: "100%", height: opened ? "60%" : "18%"}}>
            {opened && this.renderMenu() || <TouchableOpacity onPress={() => this.setState({opened: true})}>
