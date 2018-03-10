@@ -13,6 +13,9 @@
 import Icon from "react-native-vector-icons/FontAwesome";
 import SlidingUpPanel from 'rn-sliding-up-panel';
 import RoundedButton from './RoundedButton.js';
+import {NativeModules} from 'react-native';
+import { DeviceEventEmitter } from 'react-native';
+const {Firebase,Beacon} = NativeModules;
 
  const styles = {
    container: {
@@ -30,10 +33,23 @@ import RoundedButton from './RoundedButton.js';
 
  export default class App extends React.Component {
 
+  constructor(props){
+    super(props);
+    this.state = {beacon: false};
+  }
+
+  componentDidMount(){
+    Beacon.registerBeacon('tienda','bienvenida',1, 'Bienvenido a Adidas', 'Disfruta de tus compras');
+    DeviceEventEmitter.addListener('BEACON_ENTERED', res => this.setState({beacon: true}));
+    DeviceEventEmitter.addListener('BEACON_EXIT', res => this.setState({beacon: false}));
+
+  }
+  
    render() {
      return (
        <View style={styles.container}>
          <TouchableOpacity onPress={() => this.setState({visible: true})}>
+           {this.state.beacon && <Text>Hay beacon</Text>}
            <Image source={require('./images/QR-code.png')}/>
          </TouchableOpacity>
          <SlidingUpPanel

@@ -100,7 +100,7 @@ android {
     defaultConfig {1
         multiDexEnabled true
         applicationId "com.adidas"
-        minSdkVersion 18
+        minSdkVersion 22
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
