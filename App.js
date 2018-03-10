@@ -12,14 +12,15 @@
  } from 'react-native';
 import Icon from "react-native-vector-icons/FontAwesome";
 import SlidingUpPanel from 'rn-sliding-up-panel';
+import RoundedButton from './RoundedButton.js';
 
  const styles = {
    container: {
      flex: 1,
-     backgroundColor: 'white',
-     alignItems: 'center',
+     alignItems: 'flex-start',
      justifyContent: 'space-between',
-     flexDirection: 'row'
+     flexDirection: 'row',
+     padding: 30
    },
    buttonStyle: {
      borderRadius: 100,
@@ -28,25 +29,37 @@ import SlidingUpPanel from 'rn-sliding-up-panel';
  }
 
  export default class App extends React.Component {
-   state = {
-     visible: true
-   }
 
    render() {
      return (
        <View style={styles.container}>
          <TouchableOpacity onPress={() => this.setState({visible: true})}>
-           <Image source={require('./images/QR_code.png')}/>
+           <Image source={require('./images/QR-code.png')}/>
          </TouchableOpacity>
          <SlidingUpPanel
-           draggableRange={{top: 675,bottom: 100}}
+           draggableRange={{top: 675,bottom: 120}}
            ref={c => this._panel = c}
            visible={true}
            onRequestClose={() => this.setState({visible: false})}>
-           <View style={[styles.container, {backgroundColor: "black"}]}>
-              <Icon name="rocket" size={30} color="#900" />
-              <Button style={styles.buttonStyle} title='hide' />
-             <Text style={{color:"white"}}>Here is the content inside panel</Text>
+           <View style={{width: "100%", height: "100%", backgroundColor: "black"}}>
+            <View style={styles.container}>
+                <RoundedButton style={styles.buttonStyle}>
+                  <Icon name="rocket" size={30} color="#900" />
+                </RoundedButton>
+                <RoundedButton style={styles.buttonStyle}>
+                  <Icon name="rocket" size={30} color="#900" />
+                </RoundedButton>
+                <RoundedButton style={styles.buttonStyle}>
+                  <Icon name="rocket" size={30} color="#900" />
+                </RoundedButton>
+                <RoundedButton style={styles.buttonStyle}>
+                  <Icon name="rocket" size={30} color="#900" />
+                </RoundedButton>
+             </View>
+             <View style={styles.container}>
+                 <Text style={{color:'white'}}>Hola</Text>
+                 
+             </View>
            </View>
          </SlidingUpPanel>
        </View>
