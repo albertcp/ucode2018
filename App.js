@@ -1,41 +1,48 @@
-/**
- *
- */
-
  import React from 'react';
  import {
    View,
    Button,
    Text,
    TouchableOpacity,
-   Image
+   Image,
+   ScrollView,
  } from 'react-native';
+
+import HomeMain from './HomeMain';
+import HomeMenu from './HomeMenu';
+import ExercisesMain from './ExercisesMain';
+import ExercisesMenu from './ExercisesMenu';
+
+import QRCode from 'react-native-qrcode-svg';
 import Icon from "react-native-vector-icons/FontAwesome";
 import SlidingUpPanel from 'rn-sliding-up-panel';
 import RoundedButton from './RoundedButton.js';
+<<<<<<< HEAD
 import {NativeModules} from 'react-native';
 import { DeviceEventEmitter } from 'react-native';
 const {Firebase,Beacon} = NativeModules;
+=======
+import MenuButton from'./MenuButton.js';
+
+>>>>>>> a439f3e93d50eb06eb278c0acc86d8bf020f03fd
 
  const styles = {
    container: {
      flex: 1,
      alignItems: 'flex-start',
      justifyContent: 'space-between',
-     flexDirection: 'row',
-     padding: 30
+     flexDirection: 'column',
+     backgroundColor: 'white'
    },
-   buttonStyle: {
-     borderRadius: 100,
-     borderWith:1
-   }
  }
 
  export default class App extends React.Component {
 
   constructor(props){
     super(props);
-    this.state = {beacon: false};
+    this.state = {beacon: false,
+		opened: false,
+	 screen: 'home',};
   }
 
   componentDidMount(){
@@ -45,9 +52,36 @@ const {Firebase,Beacon} = NativeModules;
 
   }
   
+   renderMain(screen){
+       switch(screen){
+       case 'home':
+	   return (<HomeMain/>);
+       case 'exercises':
+	   return (<ExercisesMain/>);
+       }
+   }
+
+   renderMenu(screen){
+       switch(screen){
+       case 'home':
+	   return (<HomeMenu
+		   changeScreen={screen => {debugger; this.setState({screen})}}
+		   toggleOpened={() => this.setState({ opened: !this.state.opened })}
+		   />);
+       case 'exercises':
+	   return (<ExercisesMenu
+		   changeScreen={screen => {debugger; this.setState({screen})}}
+		   toggleOpened={() => this.setState({ opened: !this.state.opened })}
+		   />);
+       }
+   }
+
+>>>>>>> a439f3e93d50eb06eb278c0acc86d8bf020f03fd
    render() {
+     const { opened } = this.state;
      return (
        <View style={styles.container}>
+<<<<<<< HEAD
          <TouchableOpacity onPress={() => this.setState({visible: true})}>
            {this.state.beacon && <Text>Hay beacon</Text>}
            <Image source={require('./images/QR-code.png')}/>
@@ -78,6 +112,16 @@ const {Firebase,Beacon} = NativeModules;
              </View>
            </View>
          </SlidingUpPanel>
+=======
+         <ScrollView style={{height: opened ? "15%" : "85%",width: "100%" }}>
+	     {this.renderMain(this.state.screen)}
+         </ScrollView>
+         <View style={{width: "100%", height: opened ? "60%" : "18%"}}>
+           {opened && this.renderMenu() || <TouchableOpacity onPress={() => this.setState({opened: true})}>
+	     {this.renderMenu(this.state.screen)}
+           </TouchableOpacity>}
+         </View>
+>>>>>>> a439f3e93d50eb06eb278c0acc86d8bf020f03fd
        </View>
      );
    }

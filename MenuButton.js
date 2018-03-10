@@ -9,17 +9,17 @@ import SlidingUpPanel from 'rn-sliding-up-panel';
 
  const styles = {
    button: {
-     width: 50,
-     height: 50,
-     borderRadius: 25,
+     width: 25,
+     height: 25,
      borderWidth: 0,
      alignItems: "center",
      justifyContent: "center",
-     backgroundColor: "white"
+     backgroundColor: "black",
+     marginTop: 10
    }
  }
 
- export default class RoundedButton extends React.Component {
+ export default class MenuButton extends React.Component {
 
    render() {
      return (
