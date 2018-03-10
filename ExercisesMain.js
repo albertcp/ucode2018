@@ -59,23 +59,45 @@ import MenuButton from'./MenuButton.js';
    }
  }
 
+const zeroPad = (number, digits) => Array(Math.max(digits - String(number).length + 1, 0)).join(0) + number;
+
 export default class HomeMain extends React.Component {
-   render() {
-       return (
-	   <View style={{height: "100%",width: "100%" }}>
-             <View style={{ paddingTop: 30,width: "100%", justifyContent: "center", alignItems: "center"}}>
-	       <Text style={styles.timeStyle}>00:10:32</Text>
-	   </View>
-           <Text style={styles.lineStyle}>______________________________________________________________</Text>
-           <Text style={styles.titleStyle}>Cardio</Text>
-           <Text style={styles.textStyle}>30 min de maquina a toda potencia.</Text>
-           <Text style={styles.playTex}>► Play video</Text>
-           <Text style={styles.lineStyle}>______________________________________________________________</Text>
-           <Text style={styles.titleStyle}>Bici</Text>
-           <Text style={styles.textStyle}>30 min de bici VR.</Text>
-           <Text style={styles.playTex}>► Play video</Text>
-           <Text style={styles.spaceText}></Text>
-         </View>
+    constructor(props){
+	super(props);
+    }
+
+    componentDidMount(){
+	//this.props.startTimer();
+    }
+     
+    componentDidUnmount(){
+	this.props.stopTimer();
+    }
+
+
+    
+    render() {
+	const { exercises, user, time } = this.props;
+	const seconds = zeroPad(time % 60, 2);
+	const minutes = zeroPad(Math.floor(time / 60) % 60, 2);
+	const hours = Math.floor(time / 3600);
+	const ex = user && user.ejercicios && exercises && Object.values(user.ejercicios).map(key => Object.entries(exercises).find(([k,v]) => v.id === key));
+	return (
+	    <View style={{height: "100%",width: "100%" }}>
+            <View style={{ paddingTop: 30,width: "100%", justifyContent: "center", alignItems: "center"}}>
+	    <Text style={styles.timeStyle}>{hours}:{minutes}:{seconds}</Text>
+	    </View>
+            {ex && ex.map(([k,ex], i) => (
+		<View key={i}>
+		<Text style={styles.lineStyle}>______________________________________________________________</Text>
+		<Text style={styles.titleStyle}>{ex.nombre}</Text>
+		<Text style={styles.textStyle}>Duración: {ex.duracion} segundos.</Text>
+		<Text style={styles.textStyle}>{ex.descripcion}</Text>
+		<Text style={styles.playTex}>► Play video</Text>
+		</View>)
+	    )
+	    }
+            </View>
      );
    }
  }

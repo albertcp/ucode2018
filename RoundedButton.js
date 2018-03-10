@@ -24,7 +24,7 @@ import SlidingUpPanel from 'rn-sliding-up-panel';
    render() {
      return (
        <TouchableHighlight
-         style={styles.button}
+         style={[styles.button, this.props.style]}
          onPress={this.props.onPress}
        >
          {this.props.children}

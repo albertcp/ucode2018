@@ -22,7 +22,6 @@ public class AdidasPackage implements ReactPackage {
             ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();
 
-        modules.add(new FirebaseModule(reactContext));
         modules.add(new BeaconsModule(reactContext));
         modules.add(new NFCModule(reactContext));
         return modules;

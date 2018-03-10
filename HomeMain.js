@@ -29,6 +29,12 @@ import MenuButton from'./MenuButton.js';
      color: 'black',
      paddingRight: 20
    },
+   nameStyle: {
+     fontSize: 50,
+       fontWeight: 'bold',
+       marginBottom: 20,
+       color: '#900'
+   },
    titleStyle: {
      paddingLeft: 25,
      fontSize: 20,
@@ -47,31 +53,37 @@ import MenuButton from'./MenuButton.js';
  }
 
 export default class HomeMain extends React.Component {
-   render() {
+    render() {
+       const { user = {}, in_shop } = this.props;
        return (
 	   <View style={{height: "100%",width: "100%" }}>
              <View style={{ paddingTop: 30,width: "100%", justifyContent: "center", alignItems: "center"}}>
-	      <QRCode
-	        value="http://estimote.com/"
+	       <Text style={styles.nameStyle}>
+ 	       {user && user.nombre && `${user.nombre} ${user.apellido}` || 'Adidas'}
+	       </Text>
+	       <QRCode
+                value={user._id}
 	        logo={require('./images/adidas.jpg')}
                 size={210}
                 logoSize={210*0.20}
-	        logoBackgroundColor='red'
+	        logoBackgroundColor='#900'
 	    />
          </View>
-           <Text style={styles.lineStyle}>______________________________________________________________</Text>
-           <Text style={styles.titleStyle}>Recompens</Text>
-           <Text style={styles.textStyle}>Pasa por a taquilla nº 510 para recoger su recompensa. </Text>
-           <Text style={styles.lineStyle}>______________________________________________________________</Text>
-           <Text style={styles.titleStyle}>Tabla de Ejercicios</Text>
-           <Text style={styles.textStyle}>Pasa por a taquilla nº 510 para recoger su recompensa. </Text>
-           <Text style={styles.lineStyle}>______________________________________________________________</Text>
-           <Text style={styles.titleStyle}>Recomendaciones</Text>
-           <Text style={styles.textStyle}>Nuevos modelos disponibles para ti ¡No dudes en mirralos!</Text>
-           <Text style={styles.lineStyle}>______________________________________________________________</Text>
-           <Text style={styles.titleStyle}>Descuento</Text>
-           <Text style={styles.textStyle}>Pasa por nuestra tienda y disfruta de un 20% de descuento en la compra de hoy.</Text>
-           <Text style={styles.spaceText}></Text>
+	       {in_shop && <View>
+               <Text style={styles.lineStyle}>______________________________________________________________</Text>
+               <Text style={styles.titleStyle}>Recompensas</Text>
+               <Text style={styles.textStyle}>Pasa por a taquilla nº 510 para recoger su recompensa. </Text>
+               <Text style={styles.lineStyle}>______________________________________________________________</Text>
+               <Text style={styles.titleStyle}>Tabla de Ejercicios</Text>
+               <Text style={styles.textStyle}>Pasa por a taquilla nº 510 para recoger su recompensa. </Text>
+               <Text style={styles.lineStyle}>______________________________________________________________</Text>
+               <Text style={styles.titleStyle}>Recomendaciones</Text>
+               <Text style={styles.textStyle}>Nuevos modelos disponibles para ti ¡No dudes en mirralos!</Text>
+               <Text style={styles.lineStyle}>______________________________________________________________</Text>
+               <Text style={styles.titleStyle}>Descuento</Text>
+               <Text style={styles.textStyle}>Pasa por nuestra tienda y disfruta de un 20% de descuento en la compra de hoy.</Text>
+               <Text style={styles.spaceText}></Text>
+		</View>}
          </View>
      );
    }

@@ -62,7 +62,7 @@ export default class App extends React.Component {
             <Text style={{marginTop: 10, color:'white'}}>Ejercicios</Text>
           </View>
           <View style={{alignItems:  "center"}}>
-            <RoundedButton tyle={styles.buttonStyle}>
+             <RoundedButton style={styles.buttonStyle} onPress={() => this.props.changeScreen('scanner')}>
               <Icon name="camera" size={30} color="#900" />
             </RoundedButton>
             <Text style={{marginTop: 10, color:'white'}}>Scan Code</Text>
@@ -82,10 +82,10 @@ export default class App extends React.Component {
              <Text style={{marginTop: 10, color:'white'}}>Evaluar</Text>
            </View>
            <View style={{alignItems:  "center"}}>
-             <RoundedButton style={styles.buttonStyle}>
-               <Icon name="comments" size={30} color="#900" />
+             <RoundedButton style={styles.buttonStyle} onPress={() => this.props.changeScreen('facedetector')}>
+               <Icon name="id-card" size={30} color="#900" />
              </RoundedButton>
-             <Text style={{marginTop: 10, color:'white'}}>Chat</Text>
+             <Text style={{marginTop: 10, color:'white'}}>ID</Text>
            </View>
            <View style={{alignItems:  "center"}}>
              <RoundedButton style={styles.buttonStyle}>

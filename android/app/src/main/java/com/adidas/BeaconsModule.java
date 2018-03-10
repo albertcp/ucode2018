@@ -1,11 +1,13 @@
 package com.adidas;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
-import android.support.v4.app.NotificationCompat;
+import android.graphics.Color;
 import android.util.Log;
 
 import com.estimote.cloud_plugin.common.EstimoteCloudCredentials;
@@ -120,38 +122,11 @@ public class BeaconsModule extends ReactContextBaseJavaModule {
     }
 
     public void showNotification(String title, String message) {
-        Intent notifyIntent = new Intent(getReactApplicationContext(), getMainActivityClass(getReactApplicationContext()));
+        NotificationHelper helper = new NotificationHelper(getReactApplicationContext());
+        helper.createChannels();
+        Notification.Builder not = helper.getNotification1(getReactApplicationContext(),title,message);
+        helper.notify(1,not);
 
-        notifyIntent.setAction("showapp");
-        notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(getReactApplicationContext(), 0,
-                notifyIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-        Notification notification = new Notification.Builder(getReactApplicationContext())
-                .setSmallIcon(android.R.drawable.ic_dialog_info)
-                .setContentTitle(title)
-                .setContentText(message)
-                .setAutoCancel(true)
-                .setContentIntent(pendingIntent)
-                .build();
-
-        notification.defaults |= Notification.DEFAULT_SOUND;
-        NotificationManager notificationManager =
-                (NotificationManager) getReactApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-
-        notificationManager.notify(1, notification);
-
-    }
-
-    public Class getMainActivityClass(ReactApplicationContext context) {
-        String packageName = context.getPackageName();
-        Intent launchIntent = context.getPackageManager().getLaunchIntentForPackage(packageName);
-        String className = launchIntent.getComponent().getClassName();
-        try {
-            return Class.forName(className);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 
     private void sendEvent(ReactContext reactContext,
