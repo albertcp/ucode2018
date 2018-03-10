@@ -62,21 +62,21 @@ export default class App extends React.Component {
           </View>
           <View style={{alignItems:  "center"}}>
              <RoundedButton style={styles.buttonStyle} onPress={() => this.props.changeScreen('exercises')}>
-              <Icon name="clock" size={30} color="#900" />
+              <Icon name="plus-square" size={30} color="#900" />
             </RoundedButton>
-            <Text style={{marginTop: 10, color:'white'}}>Bicicleta</Text>
+            <Text style={{marginTop: 10, color:'white'}}>2 min</Text>
           </View>
           <View style={{alignItems:  "center"}}>
             <RoundedButton tyle={styles.buttonStyle}>
               <Icon name="bicycle" size={30} color="#900" />
             </RoundedButton>
-            <Text style={{marginTop: 10, color:'white'}}>Pesas</Text>
+            <Text style={{marginTop: 10, color:'white'}}>Bici</Text>
           </View>
           <View style={{alignItems:  "center"}}>
             <RoundedButton style={styles.buttonStyle}>
-              <Icon name="clock" size={30} color="#900" />
+              <Icon name="plus-square" size={30} color="#900" />
             </RoundedButton>
-            <Text style={{marginTop: 10, color:'white'}}>Tienda</Text>
+            <Text style={{marginTop: 10, color:'white'}}>2 min</Text>
           </View>
          </View>
 

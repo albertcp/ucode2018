@@ -36,6 +36,12 @@ import MenuButton from'./MenuButton.js';
      color: 'black',
      paddingTop: 10
    },
+   playTex: {
+     paddingLeft: 300,
+     fontSize: 15,
+     color: '#900',
+     paddingTop: 10
+   },
    lineStyle: {
      paddingLeft: 10,
      paddingRight: 10,
@@ -61,17 +67,13 @@ export default class HomeMain extends React.Component {
 	       <Text style={styles.timeStyle}>00:10:32</Text>
 	   </View>
            <Text style={styles.lineStyle}>______________________________________________________________</Text>
-           <Text style={styles.titleStyle}>Recompens</Text>
-           <Text style={styles.textStyle}>Pasa por a taquilla nº 510 para recoger su recompensa. </Text>
+           <Text style={styles.titleStyle}>Cardio</Text>
+           <Text style={styles.textStyle}>30 min de maquina a toda potencia.</Text>
+           <Text style={styles.playTex}>► Play video</Text>
            <Text style={styles.lineStyle}>______________________________________________________________</Text>
-           <Text style={styles.titleStyle}>Tabla de Ejercicios</Text>
-           <Text style={styles.textStyle}>Pasa por a taquilla nº 510 para recoger su recompensa. </Text>
-           <Text style={styles.lineStyle}>______________________________________________________________</Text>
-           <Text style={styles.titleStyle}>Recomendaciones</Text>
-           <Text style={styles.textStyle}>Nuevos modelos disponibles para ti ¡No dudes en mirralos!</Text>
-           <Text style={styles.lineStyle}>______________________________________________________________</Text>
-           <Text style={styles.titleStyle}>Descuento</Text>
-           <Text style={styles.textStyle}>Pasa por nuestra tienda y disfruta de un 20% de descuento en la compra de hoy.</Text>
+           <Text style={styles.titleStyle}>Bici</Text>
+           <Text style={styles.textStyle}>30 min de bici VR.</Text>
+           <Text style={styles.playTex}>► Play video</Text>
            <Text style={styles.spaceText}></Text>
          </View>
      );
