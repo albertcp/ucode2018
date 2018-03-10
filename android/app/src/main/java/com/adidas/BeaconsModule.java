@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.util.Log;
 
 import com.estimote.cloud_plugin.common.EstimoteCloudCredentials;
@@ -122,11 +123,12 @@ public class BeaconsModule extends ReactContextBaseJavaModule {
     }
 
     public void showNotification(String title, String message) {
-        NotificationHelper helper = new NotificationHelper(getReactApplicationContext());
-        helper.createChannels();
-        Notification.Builder not = helper.getNotification1(getReactApplicationContext(),title,message);
-        helper.notify(1,not);
-
+        if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationHelper helper = new NotificationHelper(getReactApplicationContext());
+            helper.createChannels();
+            Notification.Builder not = helper.getNotification1(getReactApplicationContext(), title, message);
+            helper.notify(1, not);
+        }
     }
 
     private void sendEvent(ReactContext reactContext,
