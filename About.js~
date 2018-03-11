@@ -1,0 +1,15 @@
+ import React from 'react';
+ import {
+   View,
+   Button,
+   Text,
+   TouchableOpacity,
+   Image,
+   ScrollView,
+ } from 'react-native';
+
+export default class About extends React.Component{
+    render(){
+	return <Text> Hecho por Ned Team para el uCode 2018 <Text>;
+    }
+}

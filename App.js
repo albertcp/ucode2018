@@ -13,6 +13,8 @@ import HomeMenu from './HomeMenu';
 import ExercisesMain from './ExercisesMain';
 import ExercisesMenu from './ExercisesMenu';
 import ShopMain from './ShopMain';
+import ShopMenu from './ShopMenu';
+import About from './About';
 import FaceDetector  from './FaceDetector';
 import * as firebase from 'firebase';
 
@@ -28,6 +30,8 @@ const {
     Beacon,
     NFC,
 } = NativeModules;
+
+var ws = new WebSocket('wss://k-are.eu-gb.mybluemix.net/ws/data');
 
 const USER_NAME = 'usuario1';
 
@@ -127,7 +131,7 @@ import MenuButton from './MenuButton.js';
 	     storageBucket: "adidas-b2c4e.appspot.com",
 	     messagingSenderId: "707908398505"
 	 };
-	 firebase.initializeApp(config);
+	 if (!firebase.apps.length) firebase.initializeApp(config);
 	 const database = firebase.database();
 	 const storage = firebase.storage();
 	 this.setState({
@@ -142,10 +146,25 @@ import MenuButton from './MenuButton.js';
 	 tagsRef.on('value', res => this.setState({ tags: res.val() }));
 	 const productsRef = firebase.database().ref('productos');
 	 productsRef.on('value', res => this.setState({ products: res.val() }));
+	 database.ref('taquilla').set(false);
+	 ws.onmessage = e => {
+	     try{
+		 const {type, payload} = JSON.parse(e.data);
+		 if(type === "IMAGE_CLASSIFY_RESPONSE" && payload === "Pablo"){
+		     //ToastAndroid.show("Pablo", ToastAndroid.SHORT);
+		     database.ref('taquilla').set(true);
+		     setTimeout(() => database.ref('taquilla').set(false), 30000)
+		 }
+	     }catch(err){
+		 ToastAndroid.show("Error: "+err.toString(), ToastAndroid.SHORT);
+	     }
+	 };
+
      }
 
    renderMain(screen){
        switch(screen){
+       case 'about': return <About/>;
        case 'home':
 	   return (<HomeMain
 		   user={this.state.user}
@@ -168,7 +187,7 @@ import MenuButton from './MenuButton.js';
 		   />
 	       );
 	   case 'facedetector':
-	   return <FaceDetector storage={this.state.storage}/>;
+	   return <FaceDetector ws={ws} storage={this.state.storage}/>;
        case 'shop':
 	   return <ShopMain
 	   removeItem={item_id => {
@@ -183,11 +202,19 @@ import MenuButton from './MenuButton.js';
 
      renderMenu(screen){
        switch(screen){
-       case 'home':
        case 'shop':
+	   return (<ShopMenu
+		   changeScreen={screen => this.setState({screen})}
+                   toggleOpened={() => this.setState({ opened: !this.state.opened })}
+		   product_ids={this.state.product_ids}
+		   products={this.state.products}
+		   />);
+       case 'home':
+       case 'about':
        case 'facedetector':
        case 'scanner':
 	   return (<HomeMenu
+		   unlock={() => this.state.database.ref('taquilla').set(true)}
 		   changeScreen={screen => this.setState({screen})}
                    toggleOpened={() => this.setState({ opened: !this.state.opened })}
 		   />);
@@ -213,10 +240,8 @@ import MenuButton from './MenuButton.js';
          <ScrollView style={{height: opened ? "15%" : "85%",width: "100%" }}>
 	 {this.renderMain(this.state.screen)}
          </ScrollView>
-         <View style={{width: "100%", height: opened ? "60%" : "18%"}}>
-           {opened && this.renderMenu() || <TouchableOpacity onPress={() => this.setState({opened: true})}>
+             <View style={{width: "100%", height: opened ? "60%" : "18%"}}>
 	     {this.renderMenu(this.state.screen)}
-           </TouchableOpacity>}
          </View>
        </View>
      );

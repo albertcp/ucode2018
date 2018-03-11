@@ -82,9 +82,9 @@ export default class App extends React.Component {
           </View>)}
          </View>
          <View style={styles.icon_row}>
-         { this.props.timer_id && <Button style={styles.button2Style} title="Pausa" onPress={() => {this.props.pauseTimer()}} />}
-         { !this.props.timer_id && <Button style={styles.button2Style} title="Reanudar" onPress={() => {this.props.startTimer()}} />}
-             <Button style={styles.button2Style} title="Salir" onPress={() => {this.props.stopTimer(); this.props.changeScreen('home')}} />
+             { this.props.timer_id && <Button color= '#900' title="Pausa" onPress={() => {this.props.pauseTimer()}} />}
+         { !this.props.timer_id && <Button color='#900' title="Reanudar" onPress={() => {this.props.startTimer()}} />}
+             <Button color='#900' title="Salir" onPress={() => {this.props.stopTimer(); this.props.changeScreen('home')}} />
          </View>
         </View>
         </View>

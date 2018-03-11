@@ -66,7 +66,7 @@ export default class HomeMain extends React.Component {
 	        logo={require('./images/adidas.jpg')}
                 size={210}
                 logoSize={210*0.20}
-	        logoBackgroundColor='#900'
+	        logoBackgroundColor='black'
 	    />
          </View>
 	       {in_shop && <View>

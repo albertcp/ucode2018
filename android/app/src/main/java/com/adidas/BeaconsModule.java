@@ -68,6 +68,7 @@ public class BeaconsModule extends ReactContextBaseJavaModule {
         // add this below:
         final String _title = title;
         final String _text = text;
+        Log.i("Adidas", "Beacons registered "+ title + "-"+text);
         ProximityZone zone1 = this.proximityObserver.zoneBuilder()
                 .forAttachmentKeyAndValue(key, value)
                 .inCustomRange(distance)

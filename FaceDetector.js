@@ -12,6 +12,8 @@ import React from 'react';
      NativeModules,
      ToastAndroid,
  } from 'react-native';
+import Icon from "react-native-vector-icons/FontAwesome";
+import RoundedButton from './RoundedButton.js';
 const Buffer = require('buffer/').Buffer ;
 import RNFetchBlob from 'react-native-fetch-blob'
 
@@ -68,15 +70,17 @@ import Camera from 'react-native-camera';
 	     }}
             captureTarget={"disk"}
              type={'back'}
-	     captureQuality="480p"
+	     captureQuality="1080p"
              permissionDialogTitle={'Permission to use camera'}
             permissionDialogMessage={'We need your permission to use your camera phone'}
         />
-        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center',}}>
-        <TouchableOpacity
-            onPress={this.takePicture.bind(this)}>
-            <Text style={{fontSize: 14}}> SNAP </Text>
-        </TouchableOpacity>
+		 <View style={{marginTop: 20, flex: 1, flexDirection: 'row', justifyContent: 'center',}}>
+          <View style={{alignItems:  "center"}}>
+		 <RoundedButton style={[styles.buttonStyle, {backgroundColor: "#900"}]} onPress={this.takePicture.bind(this)}>
+              <Icon name="camera" size={30} color="white" />
+            </RoundedButton>
+            <Text style={{marginTop: 10, color:'white'}}>Tienda</Text>
+          </View>
         </View>
       </View>
      )}
@@ -87,7 +91,7 @@ import Camera from 'react-native-camera';
         try{
             const data = await this.camera.capture() ;
 	    await uploadImage(this.props.storage, data.path, "image/jpeg");
-	    ToastAndroid.show("Subido con exito. Puede", ToastAndroid.SHORT);
+	    setTimeout(() => this.props.ws.send(JSON.stringify({"type": "IMAGE_CLASSIFY", "payload": "https://firebasestorage.googleapis.com/v0/b/adidas-b2c4e.appspot.com/o/image.jpg?alt=media"})), 2000);
 	    //ws.send(raw);
         }catch(err){
           console.error(err);
