@@ -68,7 +68,7 @@ export default class App extends React.Component {
             <Text style={{marginTop: 10, color:'white'}}>Scan Code</Text>
           </View>
           <View style={{alignItems:  "center"}}>
-            <RoundedButton style={styles.buttonStyle}>
+            <RoundedButton style={styles.buttonStyle} onPress={() => this.props.changeScreen('shop')}>
               <Icon name="shopping-bag" size={30} color="#900" />
             </RoundedButton>
             <Text style={{marginTop: 10, color:'white'}}>Tienda</Text>

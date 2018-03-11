@@ -12,6 +12,7 @@ import HomeMain from './HomeMain';
 import HomeMenu from './HomeMenu';
 import ExercisesMain from './ExercisesMain';
 import ExercisesMenu from './ExercisesMenu';
+import ShopMain from './ShopMain';
 import FaceDetector  from './FaceDetector';
 import * as firebase from 'firebase';
 
@@ -55,6 +56,7 @@ import MenuButton from './MenuButton.js';
 	  screen: 'home',
 	  time: 0,
 	  timer_id: null,
+	  product_ids: [],
       };
       this.renderMain = this.renderMain.bind(this);
       this.renderMenu = this.renderMenu.bind(this); 
@@ -66,11 +68,13 @@ import MenuButton from './MenuButton.js';
   }
 
      onSuccess(e) {
-	 debugger;
 	 this.setState({read: e})
 	 console.log(e);
-	 ToastAndroid.show(e.data, ToastAndroid.SHORT);
-	 this.setState({screen: 'home'})
+	 //ToastAndroid.show(e.data, ToastAndroid.SHORT);
+	 this.setState({
+	     screen: 'shop',
+	     product_ids: this.state.product_ids.concat(parseInt(e.data)),
+	 })
      }
      
      startTimer(){
@@ -103,6 +107,16 @@ import MenuButton from './MenuButton.js';
 	 });
 	 DeviceEventEmitter.addListener('BEACON_EXIT', res => this.setState({beacon: false}));
 	 DeviceEventEmitter.addListener('NFC_TAG_READ', () => NFC.getLastReadTag().then(last_tag => {
+	     const product_tag = Object.values(this.state.tags).find(tag => tag.tag_id === last_tag);
+	     if(last_tag === '04D22482C75580'){
+		 this.setState({in_shop: true});
+	     } else if(product_tag){
+		 this.setState({
+		     in_shop: true,
+		     screen: 'shop',
+		     product_ids: this.state.product_ids.concat(product_tag.product_id),
+		 })
+	     }
 	     this.setState({last_tag});
 	 }));
 	 const config = {
@@ -115,13 +129,19 @@ import MenuButton from './MenuButton.js';
 	 };
 	 firebase.initializeApp(config);
 	 const database = firebase.database();
+	 const storage = firebase.storage();
 	 this.setState({
-	     database: database,
+	     database,
+	     storage,
 	 });
 	 const userRef = firebase.database().ref('usuarios/' + USER_NAME);
 	 userRef.on('value', res => this.setState({ user: res.val() }));
 	 const exercisesRef = firebase.database().ref('ejercicios');
 	 exercisesRef.on('value', res => this.setState({ exercises: res.val() }));
+	 const tagsRef = firebase.database().ref('etiquetas');
+	 tagsRef.on('value', res => this.setState({ tags: res.val() }));
+	 const productsRef = firebase.database().ref('productos');
+	 productsRef.on('value', res => this.setState({ products: res.val() }));
      }
 
    renderMain(screen){
@@ -148,24 +168,34 @@ import MenuButton from './MenuButton.js';
 		   />
 	       );
 	   case 'facedetector':
-	       return <FaceDetector/>;
+	   return <FaceDetector storage={this.state.storage}/>;
+       case 'shop':
+	   return <ShopMain
+	   removeItem={item_id => {
+	       const index = this.state.product_ids.findIndex(id => id === item_id)
+	       if(index > -1) this.setState({ product_ids: this.state.product_ids.slice(0, index).concat(this.state.product_ids.slice(index+1)) });
+	   }}
+	   product_ids={this.state.product_ids}
+	   products={this.state.products}
+	       />
        }
    }
 
      renderMenu(screen){
        switch(screen){
        case 'home':
+       case 'shop':
        case 'facedetector':
        case 'scanner':
 	   return (<HomeMenu
-		   changeScreen={screen => {debugger; this.setState({screen})}}
+		   changeScreen={screen => this.setState({screen})}
                    toggleOpened={() => this.setState({ opened: !this.state.opened })}
 		   />);
        case 'exercises':
 	   return (<ExercisesMenu
 		   user={this.state.user}
 		   exercises={this.state.exercises}
-		   changeScreen={screen => {debugger; this.setState({screen})}}
+		   changeScreen={screen => this.setState({screen})}
 	       stopTimer={this.stopTimer}
 	       pauseTimer={this.pauseTimer}
 	       timer_id={this.state.timer_id}

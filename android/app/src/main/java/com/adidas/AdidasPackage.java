@@ -24,6 +24,7 @@ public class AdidasPackage implements ReactPackage {
 
         modules.add(new BeaconsModule(reactContext));
         modules.add(new NFCModule(reactContext));
+        modules.add(new FaceModule(reactContext));
         return modules;
     }
 
